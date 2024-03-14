@@ -1,1 +1,48 @@
+/*
+  Here, the key idea is to figure out when to remove the elements. There are two cases:
+1) If I get a lower number than what I previously had, then the previous element will be of no use to me because all the elements that will come after
+won't choose the previous element as the nearest smaller element and the element that came before it already found their nearest smaller element.
+2) If the number isn't lower , I need to store the element as this element might be the nearest small element for some number coming after it.  
+
+Thus, we basically have to pop when we get a lower element else push it at the back. We also have to store the indices as that is what the output requires.
+
+*/
+
+#include<bits/stdc++.h>
+using namespace std;
+#define speed() ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+#define int long long
+void kp(){
+    int n;cin>>n;
+    vector<pair<int,int>>stack;
+    int ans[n+5];
+    int x;cin>>x;
+    stack.push_back({x,1});
+    ans[1]=0;
+
+    for(int i=2;i<=n;i++){
+            cin>>x;
+            while((x<=stack.back().first)&&(!stack.empty()))
+            {stack.pop_back();}
+            if(stack.empty()){
+                ans[i]=0;
+            }
+            else{ans[i]=stack.back().second;}
+            stack.push_back({x,i});
+        
+    }
+    for(int i=1;i<=n;i++){
+        cout<<ans[i]<<" ";
+    }
+    cout<<'\n';
+}
+int32_t main()
+{
+    speed();
+        kp();
+    
+    return 0;
+}
+
+
 
