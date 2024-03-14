@@ -1,0 +1,45 @@
+/*
+  Here, The only time we will have a sum of length n is when either we get 0 on the prefix sum or we get an element more than once.
+  As the subarray will produce the same number if only the sum of the subarray will be zero i.e. for 4 3 5 5 3 2 the sub-array from 5th-3rd is zero.
+
+  Then since there can be negatives, we can't use visited concept rather we'll have to use map.
+
+  We'll have to apply nc2 where n=number of times an element appeared and add it to the cnt.
+
+  The most important thing we have to keep in mind is that when negative numbers are present we have to add n with the result but this addition hash to be
+  done after doing modulo of the sum as it might exceed the bound.
+
+*/
+
+
+#include<bits/stdc++.h>
+using namespace std;
+#define speed() ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+#define int long long
+void kp(){
+    int n;cin>>n;
+    int a[n+5],pre[n+5]={0};
+    map<int,int>vis;
+    vis[0]++;
+    for(int i=1;i<=n;i++){
+        cin>>a[i];
+        pre[i]=((pre[i-1]+a[i])%n+n)%n;
+        vis[pre[i]]++;
+    }
+    int cnt=0;
+    for(auto x:vis){
+        
+        cnt+=(x.second*(x.second-1))/2;
+    }
+  
+    cout<<cnt<<'\n';
+}
+int32_t main()
+{
+    speed();
+    kp();
+    
+    return 0;
+}
+
+
